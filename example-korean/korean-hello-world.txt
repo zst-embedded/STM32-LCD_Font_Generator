@@ -1,0 +1,6 @@
+ !"#$%&'()*+,-./0123456789:;<=>?@여보세요 세계HIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~
+ !"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~
+
+Note:
+- Only the first line is taken
+- 여보세요 세계 can be written using the replaced ASCII, ABCDEFG
