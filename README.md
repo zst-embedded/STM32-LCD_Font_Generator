@@ -97,4 +97,7 @@ Replace it with this which works for any number of bytes
 ***The changes are done accordingly in [`stm32l073z_eval_lcd_new.h`](stm32l073z_eval_lcd_new.h). Copy it into the project***
 
 
+### Additional Unsolved Bugs
+
+1. if the width of the character exceeds 32 pixels or 32 bits, the font will be cut off to the left.
 
