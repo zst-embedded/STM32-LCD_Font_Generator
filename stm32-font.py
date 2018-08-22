@@ -4,6 +4,7 @@ import math
 import re
 import time
 import textwrap
+import regex
 
 # Greyscale threshold from 0 - 255
 THRESHOLD = 128
@@ -11,9 +12,14 @@ THRESHOLD = 128
 CHAR_SET = ' !"#$%&\'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~'
 
 
+def get_charset_perceived():
+    # https://stackoverflow.com/questions/6805311/playing-around-with-devanagari-characters
+    return regex.findall(r'\X', CHAR_SET)
+
+
 def get_max_width(font):
     widths = []
-    for ch in CHAR_SET:
+    for ch in get_charset_perceived():
         w, h = font.getsize(ch)
         widths.append(w)
     return max(widths)
@@ -44,7 +50,7 @@ def generate_font_data(font, x_size, y_size):
     bytes_per_line = math.ceil(x_size / 8)
     empty_bit_padding = (bytes_per_line * 8 - x_size)
 
-    for i, ch in enumerate(CHAR_SET):
+    for i, ch in enumerate(get_charset_perceived()):
         # the starting array index of the current char
         array_offset = i * (bytes_per_line * y_size)
         assert data.count('0x') == array_offset

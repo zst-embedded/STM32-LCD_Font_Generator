@@ -1,0 +1,5 @@
+ !"#$%&'()*+,-./0123456789:;<=>?@வணக்கம்FGHIJKLMNOPQRSTUVWXYZ[\]^_`நன்றிfghijklmnopqrstuvwxyz{|}~
+ !"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~
+
+Use ABCDE for hello (vaṇakkam)
+Use abc for thank you (nandri)
