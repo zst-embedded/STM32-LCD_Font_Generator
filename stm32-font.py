@@ -1,26 +1,26 @@
 from PIL import Image, ImageFont, ImageDraw
 import argparse
 import math
-import re
+import regex as re
 import time
 import textwrap
-import regex
 
 # Greyscale threshold from 0 - 255
 THRESHOLD = 128
 # Font Character Set
-CHAR_SET = ' !"#$%&\'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~'
+CHAR_SET = ' !"#$%&\'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~'
 
 
 def get_charset_perceived():
     # https://stackoverflow.com/questions/6805311/playing-around-with-devanagari-characters
-    return regex.findall(r'\X', CHAR_SET)
+    return re.findall(r'\X', CHAR_SET)
 
 
 def get_max_width(font):
     widths = []
     for ch in get_charset_perceived():
-        w, h = font.getsize(ch)
+        bbox = font.getbbox(ch)
+        w, h = bbox[2], bbox[3]
         widths.append(w)
     return max(widths)
 
@@ -60,7 +60,8 @@ def generate_font_data(font, x_size, y_size):
         data += f"// @{array_offset} '{ch}' ({font_width} pixels wide)\r\n"
 
         # Calculate size and margins for centered text
-        w, h = font.getsize(ch)
+        text_bbox = font.getbbox(ch)
+        w, h = text_bbox[2], text_bbox[3]
         x_margin = (x_size - w) // 2
         y_margin = (y_size - h) // 2
         margin = (x_margin, y_margin)
@@ -120,7 +121,8 @@ sFONT {filename} = {{
         f.write(output)
 
     # Output preview of font
-    size = font.getsize(CHAR_SET)
+    preview_bbox = font.getbbox(CHAR_SET)
+    size = (preview_bbox[2], preview_bbox[3])
     im = Image.new("RGB", size)
     drawer = ImageDraw.Draw(im)
     drawer.text((0, 0), CHAR_SET, font=font)
